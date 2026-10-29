@@ -1,5 +1,45 @@
 #include <stdio.h>
 
+#define MAX_ANIMAIS 100
+
+struct Contato 
+{
+    char nome[100];
+    char telefone[20];
+};
+
+struct Responsavel
+{
+    char nome[100];
+    char telefone[20];
+    char rua[100];
+    char numero[10];
+    char complemento[50];
+    char bairro[50];
+    char cidade[50];
+};
+
+struct Animal
+{
+   int id;
+   char nome[50];
+   char especie[30];
+   char raca[50];
+   int sexo;
+   int idadeAnos;
+   int idadeMeses; 
+   struct Responsavel responsavel;
+   struct Contato contatos[2];
+   int totalContatos;
+   
+   
+};
+
+struct Animal animais[MAX_ANIMAIS];
+int totalAnimais = 0;
+int proximoId = 1;
+
+
 int main() {
     // Guarda a opção escolhida pelo usuário
     // Começa com -1 para que o menu seja exibido pela primeira vez
