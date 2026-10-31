@@ -1,88 +1,5 @@
 #include <stdio.h>
-
-#define MAX_ANIMAIS 100
-
-struct Contato 
-{
-    char nome[100];
-    char telefone[20];
-};
-
-struct Responsavel
-{
-    char nome[100];
-    char telefone[20];
-    char rua[100];
-    char numero[10];
-    char complemento[50];
-    char bairro[50];
-    char cidade[50];
-};
-
-struct Animal
-{
-   int id;
-   char nome[50];
-   char especie[30];
-   char raca[50];
-   int sexo;
-   int idadeAnos;
-   int idadeMeses; 
-   struct Responsavel responsavel;
-   struct Contato contatos[2];
-   int totalContatos;
-   
-   
-};
-
-struct Animal animais[MAX_ANIMAIS];
-int totalAnimais = 0;
-int proximoId = 1;
-
-// FUNÇÃO DE CADASTRAR
-void cadastrarAnimal(){
-    if (totalAnimais >= MAX_ANIMAIS) {
-        printf("Limite de animais atingido!\n");
-        return;
-    }
-    struct Animal novoAnimal = {0};
-    novoAnimal.id = proximoId++;
-    printf("\n=== CADASTRO DE ANIMAL ===\n");
-    printf("ID do animal: %03d\n", novoAnimal.id);
-    printf("Nome do animal: ");
-    scanf(" %49[^\n]", novoAnimal.nome);
-    printf("\nEscolha a espécie:\n");
-    printf("1 - Cachorro\n");
-    printf("2 - Gato\n");
-    printf("3 - Ave\n");
-    printf("4 - Réptil\n");
-    printf("5 - Roedor\n");
-    printf("6 - Outra espécie\n");
-    printf("Digite uma opção: ");
-    int opcaoEspecie;
-    scanf("%d", &opcaoEspecie);
-    if (opcaoEspecie == 1) {
-        printf("Espécie escolhida: Cachorro\n");
-    }
-    else if (opcaoEspecie == 2) {
-        printf("Espécie escolhida: Gato\n");
-    }
-    else if (opcaoEspecie == 3) {
-        printf("Espécie escolhida: Ave\n");
-    }
-    else if (opcaoEspecie == 4) {
-        printf("Espécie escolhida: Réptil\n");
-    }
-    else if (opcaoEspecie == 5) {
-        printf("Espécie escolhida: Roedor\n");
-    }
-    else if (opcaoEspecie == 6) {
-        printf("Espécie escolhida: Outra espécie\n");
-    }
-    else {
-        printf("Opção inválida!\n");
-    }
-}
+#include "petcare.h"
 
 
 int main() {
@@ -118,7 +35,7 @@ int main() {
         }
         // A partir daqui vai realizar a verificação de outras opções que o usuário pode escolher além da 1.
         else if (opcao == 2) {
-            printf("Você escolheu listar animais!\n");
+            listarAnimais();
         }
         else if (opcao == 3) {
             printf("Você escolheu pesquisar animais!\n");

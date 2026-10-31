@@ -38,5 +38,6 @@ extern int totalAnimais;
 extern int proximoId;
 
 void cadastrarAnimal(void);
+void listarAnimais(void);
 
 #endif
