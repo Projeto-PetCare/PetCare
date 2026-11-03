@@ -15,7 +15,7 @@ void cadastrarAnimal(){
     }
     struct Animal novoAnimal = {0};
     novoAnimal.totalContatos = 0;
-    novoAnimal.id = proximoId++;
+    novoAnimal.id = proximoId;
     printf("\n=== CADASTRO DE ANIMAL ===\n");
     printf("ID do animal: %03d\n", novoAnimal.id);
     printf("Nome do animal: ");
@@ -23,12 +23,12 @@ void cadastrarAnimal(){
     fgets(novoAnimal.nome, sizeof(novoAnimal.nome), stdin);
 
     novoAnimal.nome[strcspn(novoAnimal.nome, "\n")] = '\0';
-    
-    if (strlen(novoAnimal.nome) == 0) {
-        printf("O nome do animal não pode ficar vazio!\n");
-        return;
-    }
 
+    if (strlen(novoAnimal.nome) == 0 ||
+    strspn(novoAnimal.nome, " \t") == strlen(novoAnimal.nome)) {
+    printf("O nome do animal não pode ficar vazio!\n");
+    return;
+    }
     printf("\nEscolha a espécie:\n");
     printf("1 - Cachorro\n");
     printf("2 - Gato\n");
@@ -84,8 +84,9 @@ void cadastrarAnimal(){
     fgets(novoAnimal.raca, sizeof(novoAnimal.raca), stdin);
 
     novoAnimal.raca[strcspn(novoAnimal.raca, "\n")] = '\0';
-    if (strlen(novoAnimal.raca) == 0) {
-        strcpy(novoAnimal.raca, "Não informada");
+    if (strlen(novoAnimal.raca) == 0 ||
+    strspn(novoAnimal.raca, " \t") == strlen(novoAnimal.raca)) {
+    strcpy(novoAnimal.raca, "Não informada");
     }
     printf("\nSexo do animal:\n");
     printf("1 - Macho\n");
@@ -157,10 +158,12 @@ void cadastrarAnimal(){
     fgets(novoAnimal.responsavel.nome, sizeof(novoAnimal.responsavel.nome), stdin);
 
     novoAnimal.responsavel.nome[strcspn(novoAnimal.responsavel.nome, "\n")] = '\0';
-    if (strlen(novoAnimal.responsavel.nome) == 0) {
-        printf("O nome do responsável não pode ficar vazio!\n");
-        return;
-    }
+
+    if (strlen(novoAnimal.responsavel.nome) == 0 ||
+    strspn(novoAnimal.responsavel.nome, " \t") == strlen(novoAnimal.responsavel.nome)) {
+    printf("O nome do responsável não pode ficar vazio!\n");
+    return;
+}
 
 
     printf("Telefone do responsável: ");
@@ -228,7 +231,8 @@ void cadastrarAnimal(){
        printf("Complemento: ");
        fgets(novoAnimal.responsavel.complemento, sizeof(novoAnimal.responsavel.complemento), stdin);
         novoAnimal.responsavel.complemento[strcspn(novoAnimal.responsavel.complemento, "\n")] = '\0';
-        if (strlen(novoAnimal.responsavel.complemento) == 0) {
+        if (strlen(novoAnimal.responsavel.complemento) == 0 ||
+            strspn(novoAnimal.responsavel.complemento, " \t") == strlen(novoAnimal.responsavel.complemento)) {
             strcpy(novoAnimal.responsavel.complemento, "Não informado");
         }
         // BAIRRO - OBRIGATÓRIO
@@ -256,21 +260,27 @@ void cadastrarAnimal(){
             printf("A cidade não pode ficar vazia!\n");
         }
     int opcaoContato;
+
     while (1) {
-    printf("\nDeseja adicionar contatos adicionais?\n");
-    printf("1 - Sim\n");
-    printf("2 - Não\n");
-    printf("Digite uma opção: ");
+        printf("\nDeseja adicionar contatos adicionais?\n");
+        printf("1 - Sim\n");
+        printf("2 - Não\n");
+        printf("Digite uma opção: ");
+
     if (scanf("%d", &opcaoContato) != 1) {
         printf("Entrada inválida! Digite apenas 1 ou 2.\n");
         while ((caractere = getchar()) != '\n' && caractere != EOF) {
         }
-        continue;
+        continue;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     }
+
     if (opcaoContato == 1 || opcaoContato == 2) {
         break;
+
     }
+    
     printf("Opção inválida! Escolha 1 ou 2.\n");
+
     }
 
     // PRIMEIRO CONTATO ADICIONAL
@@ -280,10 +290,13 @@ void cadastrarAnimal(){
         getchar();
         fgets(novoAnimal.contatos[0].nome, sizeof(novoAnimal.contatos[0].nome), stdin);
         novoAnimal.contatos[0].nome[strcspn(novoAnimal.contatos[0].nome, "\n")] = '\0';
-        if (strlen(novoAnimal.contatos[0].nome) == 0) {
+
+        if (strlen(novoAnimal.contatos[0].nome) == 0 ||
+            strspn(novoAnimal.contatos[0].nome, " \t") == strlen(novoAnimal.contatos[0].nome)) {
             printf("O nome do contato não pode ficar vazio!\n");
             return;
         }
+
         // TELEFONE 1 CONTATO
         printf("Telefone: ");
         fgets(novoAnimal.contatos[0].telefone, sizeof(novoAnimal.contatos[0].telefone), stdin);
@@ -293,8 +306,10 @@ void cadastrarAnimal(){
             printf("O telefone do contato não pode ficar vazio!\n");
             return;
         }
+
         int telefoneContatoValido = 1;
         int digitosContato = 0;
+
         for (int i = 0; novoAnimal.contatos[0].telefone[i] != '\0'; i++) {
             char c = novoAnimal.contatos[0].telefone[i];
 
@@ -320,6 +335,7 @@ void cadastrarAnimal(){
 
         // SEGUNDO CONTATO ADICIONAL
         int segundoContato;
+
         while (1) {
             printf("\nDeseja adicionar um segundo contato?\n");
             printf("1 - Sim\n");
@@ -335,9 +351,12 @@ void cadastrarAnimal(){
             continue;
 
         }
+
         if (segundoContato == 1 || segundoContato == 2) {
             break;
+
         }
+
         printf("Opção inválida! Escolha 1 ou 2.\n");
     }
         if (segundoContato == 1) {
@@ -346,7 +365,8 @@ void cadastrarAnimal(){
             getchar();
             fgets(novoAnimal.contatos[1].nome, sizeof(novoAnimal.contatos[1].nome), stdin);
             novoAnimal.contatos[1].nome[strcspn(novoAnimal.contatos[1].nome, "\n")] = '\0';
-            if (strlen(novoAnimal.contatos[1].nome) == 0) {
+            if (strlen(novoAnimal.contatos[1].nome) == 0 ||
+                strspn(novoAnimal.contatos[1].nome, " \t") == strlen(novoAnimal.contatos[1].nome)) {
                 printf("O nome do contato não pode ficar vazio!\n");
                 return;
             }
@@ -384,6 +404,7 @@ void cadastrarAnimal(){
     }
     animais[totalAnimais] = novoAnimal;
     totalAnimais++;
+    proximoId++;
 }
 void listarAnimais(void){
     if (totalAnimais == 0){
@@ -416,6 +437,10 @@ void listarAnimais(void){
         else {
             printf("Sexo: Fêmea\n");
         }
-        printf("Idade: %d ano(s) e %d mes(es)\n", animais[i].idadeAnos, animais[i].idadeMeses);
+        printf("Idade: %d %s e %d %s\n",
+            animais[i].idadeAnos,
+            animais[i].idadeAnos == 1 ? "ano" : "anos",
+            animais[i].idadeMeses,
+            animais[i].idadeMeses == 1 ? "mês" : "meses");
     }
 }
