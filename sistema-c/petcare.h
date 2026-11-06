@@ -39,5 +39,6 @@ extern int proximoId;
 
 void cadastrarAnimal(void);
 void listarAnimais(void);
+void pesquisarAnimais(void);
 
 #endif

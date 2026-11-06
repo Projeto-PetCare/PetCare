@@ -9,13 +9,16 @@ int proximoId = 1;
 
 // FUNÇÃO DE CADASTRAR
 void cadastrarAnimal(){
+
     if (totalAnimais >= MAX_ANIMAIS) {
         printf("Limite de animais atingido!\n");
         return;
     }
+
     struct Animal novoAnimal = {0};
     novoAnimal.totalContatos = 0;
     novoAnimal.id = proximoId;
+
     printf("\n=== CADASTRO DE ANIMAL ===\n");
     printf("ID do animal: %03d\n", novoAnimal.id);
     printf("Nome do animal: ");
@@ -29,6 +32,7 @@ void cadastrarAnimal(){
     printf("O nome do animal não pode ficar vazio!\n");
     return;
     }
+
     printf("\nEscolha a espécie:\n");
     printf("1 - Cachorro\n");
     printf("2 - Gato\n");
@@ -36,8 +40,10 @@ void cadastrarAnimal(){
     printf("4 - Réptil\n");
     printf("5 - Roedor\n");
     printf("6 - Outra espécie\n");
+
     int opcaoEspecie;
     int caractere;
+
     while (1) {
         printf("Digite uma opção: ");
 
@@ -58,6 +64,7 @@ void cadastrarAnimal(){
 
         }
     }
+
     if (opcaoEspecie == 1) {
         strcpy(novoAnimal.especie, "Cachorro");
     }
@@ -77,6 +84,7 @@ void cadastrarAnimal(){
     else if (opcaoEspecie == 6) {
         strcpy(novoAnimal.especie, "Outra espécie");
     }
+
     printf("Espécie cadastrada: %s\n", novoAnimal.especie);
 
     printf("Raça do animal: (ou Enter para não informar): ");
@@ -118,6 +126,7 @@ void cadastrarAnimal(){
     printf("\nIdade do animal:\n");
 
     printf("Anos: ");
+    
     while (1) {
         if (scanf("%d", &novoAnimal.idadeAnos) != 1) {
             printf("Idade inválida! digite apenas números.\n");
@@ -443,4 +452,54 @@ void listarAnimais(void){
             animais[i].idadeMeses,
             animais[i].idadeMeses == 1 ? "mês" : "meses");
     }
+}
+void pesquisarAnimais(void){
+    int opcao;
+    int id;
+    int encontrado = 0;
+    int posicao = -1;
+    char nomeBusca[50];
+
+    printf("\n=== PESQUISAR ANIMAIS ===\n");
+    printf("1 - Pesquisar por ID\n ");
+    printf("2 - Pesquisar por nome\n");
+    printf("0 - Voltar ao menu principal\n");
+    printf("Escolha uma opção: ");
+    scanf("%d", &opcao);
+
+
+    if (opcao == 1) {
+    printf("Digite o ID do animal: ");
+    scanf("%d", &id);
+
+    encontrado = 0;
+    posicao = -1;
+
+    for (int i = 0; i < totalAnimais; i++) {
+        if (animais[i].id == id) {
+            encontrado = 1;
+            posicao = i;
+            break;
+        }
+    }
+
+    if (encontrado == 1) {
+        printf("\n=== ANIMAL ENCONTRADO ===\n");
+        printf("ID: %03d\n", animais[posicao].id);
+        printf("Nome: %s\n", animais[posicao].nome);
+        printf("Espécie: %s\n", animais[posicao].especie);
+        printf("Raça: %s\n", animais[posicao].raca);
+    }
+    else {
+        printf("\nAnimal não encontrado!\n");
+    }
+
+}
+else if (opcao == 2) {
+    printf("Digite o nome do animal: ");
+    getchar();
+    fgets(nomeBusca, sizeof(nomeBusca), stdin);
+    nomeBusca[strcspn(nomeBusca, "\n")] = '\0';
+}
+
 }
