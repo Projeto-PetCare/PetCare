@@ -1,0 +1,17 @@
+.sobre {
+    max-width: 1200px;
+    min-height: 500px;
+    margin: 0 auto;
+    padding: 70px 30px;
+}
+
+.sobre h1 {
+    font-size: 38px;
+    color: var(--verde-escuro);
+    margin-bottom: 20px;
+}
+
+.sobre p {
+    font-size: 18px;
+    line-height: 1.7;
+}

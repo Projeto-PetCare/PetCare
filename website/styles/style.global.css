@@ -1,0 +1,150 @@
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+
+    --verde-escuro: #405B46;
+    --verde-medio: #5F8467;
+    --verde-claro: #DCE3D1;
+
+    --bege: #F5F1E5;
+    --branco: #FFFFFF;
+
+    --texto: #34483A;
+
+}
+
+body {
+    background-color: var(--bege);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+/* CABEÇALHO */
+
+.header {
+    background-color: var(--verde-escuro);
+    padding: 15px 4%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: var(--branco);
+    text-decoration: none;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--branco);
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: var(--verde-claro);
+}
+
+/* RODAPÉ */
+
+.footer {
+    background-color: var(--verde-escuro);
+    color: var(--branco);
+    padding: 45px 30px 15px;
+}
+
+/* ORGANIZAÇÃO DAS COLUNAS */
+
+.footer-container {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 40px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* CADA COLUNA */
+
+.footer-coluna h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-coluna p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+/* LINKS DE NAVEGAÇÃO */
+
+.footer-coluna ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-coluna li {
+    margin-bottom: 8px;
+}
+
+.footer-coluna a {
+    color: var(--branco);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-coluna a:hover {
+    color: var(--verde-claro);
+    text-decoration: underline;
+}
+
+/* PARTE INFERIOR */
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 35px auto 0;
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+
+    text-align: center;
+    font-size: 13px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer {
+        padding: 35px 24px 15px;
+    }
+
+    .footer-bottom {
+        margin-top: 25px;
+    }
+
+}
