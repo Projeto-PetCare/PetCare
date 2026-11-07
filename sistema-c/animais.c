@@ -500,6 +500,35 @@ else if (opcao == 2) {
     getchar();
     fgets(nomeBusca, sizeof(nomeBusca), stdin);
     nomeBusca[strcspn(nomeBusca, "\n")] = '\0';
-}
 
+    if (strlen(nomeBusca) == 0) {
+        printf("Digite um nome para pesquisar!\n");
+        return;
+    }
+    
+    encontrado = 0;
+
+    for (int i = 0; i < totalAnimais; i++) {
+        if (strstr(animais[i].nome, nomeBusca) != NULL) {
+            encontrado = 1;
+
+            printf("\n=== ANIMAL ENCONTRADO ===\n");
+            printf("ID: %03d\n", animais[i].id);
+            printf("Nome: %s\n", animais[i].nome);
+            printf("Espécie: %s\n", animais[i].especie);
+            printf("Raça: %s\n", animais[i].raca);
+
+        }
+    }   
+    if (encontrado == 0) {
+        printf("\nAnimal não encontrado!\n");
+    }
+}
+else if (opcao == 0) {
+    printf("\nVoltando ao menu principal...\n");
+}
+else {
+    printf("\nOpção inválida! Escolha 0, 1 ou 2.\n");
+    
+}
 }
