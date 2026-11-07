@@ -38,7 +38,7 @@ int main() {
             listarAnimais();
         }
         else if (opcao == 3) {
-            printf("Você escolheu pesquisar animais!\n");
+            pesquisarAnimais();
         }
         else if (opcao == 4) {
             printf("Você escolheu registrar atendimento!\n");
