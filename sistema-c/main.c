@@ -1,16 +1,34 @@
 #include <stdio.h>
 #include "petcare.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+// Lê um inteiro com segurança, sem travar em loop se o usuário digitar letras
+int lerInteiro(void) {
+    int valor;
+    int c;
+
+    while (scanf("%d", &valor) != 1) {
+        while ((c = getchar()) != '\n' && c != EOF);  // descarta a linha inválida
+        if (c == EOF) return 0;                       // evita loop infinito se a entrada fechar
+        printf("Entrada inválida! Digite um número: ");
+    }
+
+    while ((c = getchar()) != '\n' && c != EOF);      // descarta o '\n' que sobrou
+
+    return valor;
+}
 
 int main() {
-    // Guarda a opção escolhida pelo usuário
-    // Começa com -1 para que o menu seja exibido pela primeira vez
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+    #endif
+
     int opcao = -1;
 
-    // Repete o menu enquanto(WHILE) a opção escolhida for diferente(!=) de 0 (SAIR)
     while (opcao != 0) {
-
-        //Exibe o menu principal do sistema.
         printf("========== PETCARE ==========\n");
         printf("1 - Cadastrar animal\n");
         printf("2 - Listar animais\n");
@@ -22,48 +40,22 @@ int main() {
         printf("8 - Faturamento\n");
         printf("0 - Sair\n");
 
-        // Solicita ao usuário que escolha uma opção do menu.
         printf("Digite uma opção: ");
-        scanf("%d", &opcao);
+        opcao = lerInteiro();   // <-- era scanf("%d", &opcao);
 
-        // Mostra o número da opção escolhida.
         printf("Você escolheu a opção: %d\n", opcao);
 
-        // Verifica se o usuário escolheu a opção 1.
-        if (opcao == 1){
-            cadastrarAnimal();
-        }
-        // A partir daqui vai realizar a verificação de outras opções que o usuário pode escolher além da 1.
-        else if (opcao == 2) {
-            listarAnimais();
-        }
-        else if (opcao == 3) {
-            pesquisarAnimais();
-        }
-        else if (opcao == 4) {
-            printf("Você escolheu registrar atendimento!\n");
-        }
-        else if (opcao == 5) {
-            printf("Você escolheu registrar serviço!\n");
-        }
-        else if (opcao == 6) {
-            printf("Você escolheu consultar histórico!\n");
-        }
-        else if (opcao == 7) {
-            printf("Você escolheu relatório de atendimento!\n");
-        }
-        else if (opcao == 8) {
-            printf("Você escolheu faturamento!\n");
-        }
-        // Encerra o sistema.
-        else if (opcao == 0) {
-            printf("Encerrando o sistema Petcare!\n");
-        }
-        // Executa esta mensagem quando a escolha da opção não ta no menu
-        else {
-            printf("Opção inválida! Tente novamente.\n");
-        }
-    }// FIM do WHILE: volta ao menu ou encerra a repetição
-    
-    return 0; // Indica que o programa terminou normalmente.
+                if (opcao == 1)      cadastrarAnimal();
+        else if (opcao == 2) listarAnimais();
+        else if (opcao == 3) pesquisarAnimais();
+        else if (opcao == 4) registrarAtendimento();
+        else if (opcao == 5) registrarServico();
+        else if (opcao == 6) consultarHistorico();
+        else if (opcao == 7) relatorioAtendimentos();
+        else if (opcao == 8) faturamento();
+        else if (opcao == 0) printf("Encerrando o sistema Petcare!\n");
+        else                 printf("Opção inválida! Tente novamente.\n");
+    }
+
+    return 0;
 }
