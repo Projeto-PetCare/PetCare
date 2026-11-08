@@ -1,17 +1,172 @@
+/* PÁGINA CONTATO - PETCARE       */
+
 .contato {
-    max-width: 1200px;
-    min-height: 500px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 70px 30px;
 }
 
-.contato h1 {
-    font-size: 38px;
-    color: var(--verde-escuro);
-    margin-bottom: 20px;
+/* APRESENTAÇÃO DA PÁGINA */
+
+.contato-intro {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    text-align: center;
 }
 
-.contato p {
-    font-size: 18px;
+.contato-tag {
+    display: inline-block;
+    color: var(--verde-medio);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.contato-intro h1 {
+    color: var(--verde-escuro);
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.contato-intro p {
+    font-size: 17px;
     line-height: 1.7;
+}
+
+/* DUAS COLUNAS */
+
+.contato-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* INFORMAÇÕES DE CONTATO */
+
+.contato-info {
+    padding: 25px 0;
+}
+
+.contato-info h2 {
+    color: var(--verde-escuro);
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.info-item {
+    margin-bottom: 30px;
+}
+
+.info-item h3 {
+    color: var(--verde-escuro);
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.info-item p {
+    color: #657366;
+    font-size: 15px;
+}
+
+/* FORMULÁRIO */
+
+.contato-formulario {
+    background-color: var(--branco);
+    padding: 35px;
+    border-radius: 15px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contato-formulario h2 {
+    color: var(--verde-escuro);
+    margin-bottom: 25px;
+    font-size: 25px;
+}
+
+/* CAMPOS */
+
+#form-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contato-formulario .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contato-formulario label {
+    font-weight: bold;
+    color: var(--verde-escuro);
+}
+
+.contato-formulario input,
+.contato-formulario select,
+.contato-formulario textarea {
+    width: 100%;
+    padding: 13px;
+
+    border: 1px solid #D5DCCF;
+    border-radius: 8px;
+
+    background-color: #FFFFFF;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+/* DESTAQUE AO SELECIONAR UM CAMPO */
+
+.contato-formulario input:focus,
+.contato-formulario select:focus,
+.contato-formulario textarea:focus {
+    outline: 2px solid var(--verde-medio);
+    outline-offset: 1px;
+}
+
+/* BOTÃO */
+
+.btn-enviar {
+    background-color: var(--verde-medio);
+    color: var(--branco);
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 14px 25px;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background-color: var(--verde-escuro);
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    .contato {
+        padding: 50px 20px;
+    }
+
+    .contato-intro h1 {
+        font-size: 30px;
+    }
+
+    .contato-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .contato-formulario {
+        padding: 25px 20px;
+    }
+
 }

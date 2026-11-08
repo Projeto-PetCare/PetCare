@@ -148,3 +148,20 @@ body {
     }
 
 }
+
+/* RESPONSIVIDADE DO CABEÇALHO */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+}

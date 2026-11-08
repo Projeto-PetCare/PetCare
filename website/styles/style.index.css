@@ -1,4 +1,3 @@
-
 /* PÁGINA INICIAL - PETCARE */
 
 .hero {
@@ -9,9 +8,8 @@
 
     max-width: 1200px;
     min-height: 600px;
-
     margin: 0 auto;
-    padding: 70px 40px;
+    padding: 60px 30px;
 }
 
 .hero-content {
