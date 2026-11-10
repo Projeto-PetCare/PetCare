@@ -237,3 +237,254 @@ cJSON_ArrayForEach(item, lista) {
     cJSON_Delete(lista);
     free(conteudo);
 }
+
+
+void salvarAtendimentos(void) {
+    cJSON *lista = cJSON_CreateArray();
+
+    if (lista == NULL) {
+        printf("Erro ao criar lista JSON de atendimentos!\n");
+        return;
+    }
+
+    for (int i = 0; i < totalAtendimentos; i++) {
+        cJSON *atendimento = cJSON_CreateObject();
+
+        cJSON_AddNumberToObject(atendimento, "idAnimal", atendimentos[i].idAnimal);
+        cJSON_AddStringToObject(atendimento, "data", atendimentos[i].data);
+        cJSON_AddStringToObject(atendimento, "descricao", atendimentos[i].descricao);
+
+        cJSON_AddItemToArray(lista, atendimento);
+    }
+
+    char *json = cJSON_Print(lista);
+
+    if (json == NULL) {
+        printf("Erro ao converter atendimentos para JSON!\n");
+        cJSON_Delete(lista);
+        return;
+    }
+
+    FILE *arquivo = fopen("atendimentos.json", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir atendimentos.json!\n");
+        free(json);
+        cJSON_Delete(lista);
+        return;
+    }
+
+    fprintf(arquivo, "%s\n", json);
+
+    fclose(arquivo);
+    free(json);
+    cJSON_Delete(lista);
+}
+
+void carregarAtendimentos(void) {
+    FILE *arquivo = fopen("atendimentos.json", "r");
+
+    if (arquivo == NULL) {
+        printf("Arquivo atendimentos.json ainda não existe.\n");
+        return;
+    }
+
+    fseek(arquivo, 0, SEEK_END);
+    long tamanho = ftell(arquivo);
+    rewind(arquivo);
+
+    char *conteudo = malloc(tamanho + 1);
+
+    if (conteudo == NULL) {
+        printf("Erro ao reservar memória!\n");
+        fclose(arquivo);
+        return;
+    }
+
+    size_t lidos = fread(conteudo, 1, tamanho, arquivo);
+    conteudo[lidos] = '\0';
+
+    fclose(arquivo);
+
+    cJSON *lista = cJSON_Parse(conteudo);
+
+    if (lista == NULL) {
+        printf("Erro ao interpretar atendimentos.json!\n");
+        free(conteudo);
+        return;
+    }
+
+    if (!cJSON_IsArray(lista)) {
+        printf("O JSON de atendimentos não contém uma lista válida!\n");
+        cJSON_Delete(lista);
+        free(conteudo);
+        return;
+    }
+
+    totalAtendimentos = 0;
+
+    cJSON *item = NULL;
+
+    cJSON_ArrayForEach(item, lista) {
+        if (totalAtendimentos >= MAX_ATENDIMENTOS) {
+            break;
+        }
+
+        cJSON *idAnimal = cJSON_GetObjectItemCaseSensitive(item, "idAnimal");
+        cJSON *data = cJSON_GetObjectItemCaseSensitive(item, "data");
+        cJSON *descricao = cJSON_GetObjectItemCaseSensitive(item, "descricao");
+
+        if (!cJSON_IsNumber(idAnimal) ||
+            !cJSON_IsString(data) ||
+            !cJSON_IsString(descricao)) {
+            continue;
+        }
+
+        atendimentos[totalAtendimentos].idAnimal = idAnimal->valueint;
+
+        snprintf(atendimentos[totalAtendimentos].data,
+                 sizeof(atendimentos[totalAtendimentos].data),
+                 "%s", data->valuestring);
+
+        snprintf(atendimentos[totalAtendimentos].descricao,
+                 sizeof(atendimentos[totalAtendimentos].descricao),
+                 "%s", descricao->valuestring);
+
+        totalAtendimentos++;
+    }
+
+    cJSON_Delete(lista);
+    free(conteudo);
+}
+
+void salvarServicos(void) {
+    cJSON *lista = cJSON_CreateArray();
+
+    if (lista == NULL) {
+        printf("Erro ao criar lista JSON de serviços!\n");
+        return;
+    }
+
+    for (int i = 0; i < totalServicos; i++) {
+        cJSON *servico = cJSON_CreateObject();
+
+        cJSON_AddNumberToObject(servico, "id", servicos[i].id);
+        cJSON_AddNumberToObject(servico, "idAnimal", servicos[i].idAnimal);
+        cJSON_AddStringToObject(servico, "data", servicos[i].data);
+        cJSON_AddStringToObject(servico, "descricao", servicos[i].descricao);
+        cJSON_AddNumberToObject(servico, "valor", servicos[i].valor);
+
+        cJSON_AddItemToArray(lista, servico);
+    }
+
+    char *json = cJSON_Print(lista);
+
+    if (json == NULL) {
+        printf("Erro ao converter serviços para JSON!\n");
+        cJSON_Delete(lista);
+        return;
+    }
+
+    FILE *arquivo = fopen("servicos.json", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir servicos.json!\n");
+        free(json);
+        cJSON_Delete(lista);
+        return;
+    }
+
+    fprintf(arquivo, "%s\n", json);
+
+    fclose(arquivo);
+    free(json);
+    cJSON_Delete(lista);
+}
+
+void carregarServicos(void) {
+    FILE *arquivo = fopen("servicos.json", "r");
+
+    if (arquivo == NULL) {
+        printf("Arquivo servicos.json ainda não existe.\n");
+        return;
+    }
+
+    fseek(arquivo, 0, SEEK_END);
+    long tamanho = ftell(arquivo);
+    rewind(arquivo);
+
+    char *conteudo = malloc(tamanho + 1);
+
+    if (conteudo == NULL) {
+        printf("Erro ao reservar memória!\n");
+        fclose(arquivo);
+        return;
+    }
+
+    size_t lidos = fread(conteudo, 1, tamanho, arquivo);
+    conteudo[lidos] = '\0';
+    fclose(arquivo);
+
+    cJSON *lista = cJSON_Parse(conteudo);
+
+    if (lista == NULL) {
+        printf("Erro ao interpretar servicos.json!\n");
+        free(conteudo);
+        return;
+    }
+
+    if (!cJSON_IsArray(lista)) {
+        printf("O JSON de serviços não contém uma lista válida!\n");
+        cJSON_Delete(lista);
+        free(conteudo);
+        return;
+    }
+
+    totalServicos = 0;
+    proximoIdServico = 1;
+
+    cJSON *item = NULL;
+
+    cJSON_ArrayForEach(item, lista) {
+
+        if (totalServicos >= MAX_SERVICOS) {
+            break;
+        }
+
+        cJSON *id = cJSON_GetObjectItemCaseSensitive(item, "id");
+        cJSON *idAnimal = cJSON_GetObjectItemCaseSensitive(item, "idAnimal");
+        cJSON *data = cJSON_GetObjectItemCaseSensitive(item, "data");
+        cJSON *descricao = cJSON_GetObjectItemCaseSensitive(item, "descricao");
+        cJSON *valor = cJSON_GetObjectItemCaseSensitive(item, "valor");
+
+        if (!cJSON_IsNumber(id) ||
+            !cJSON_IsNumber(idAnimal) ||
+            !cJSON_IsString(data) ||
+            !cJSON_IsString(descricao) ||
+            !cJSON_IsNumber(valor)) {
+            continue;
+        }
+
+        servicos[totalServicos].id = id->valueint;
+        servicos[totalServicos].idAnimal = idAnimal->valueint;
+
+        snprintf(servicos[totalServicos].data,
+                 sizeof(servicos[totalServicos].data),
+                 "%s", data->valuestring);
+
+        snprintf(servicos[totalServicos].descricao,
+                 sizeof(servicos[totalServicos].descricao),
+                 "%s", descricao->valuestring);
+
+        servicos[totalServicos].valor = (float)valor->valuedouble;
+
+        if (servicos[totalServicos].id >= proximoIdServico) {
+            proximoIdServico = servicos[totalServicos].id + 1;
+        }
+
+        totalServicos++;
+    }
+
+    cJSON_Delete(lista);
+    free(conteudo);
+}

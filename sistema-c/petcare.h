@@ -80,9 +80,15 @@ void carregarAnimais(void);
 /* atendimentos.c */
 void registrarAtendimento(void);
 void consultarHistorico(void);
+/* persistencia.c */
+void salvarAtendimentos(void);
+void carregarAtendimentos(void);
 
 /* servicos.c */
 void registrarServico(void);
+/* persistencia de serviços */
+void salvarServicos(void);
+void carregarServicos(void);
 
 /* relatorios.c */
 void relatorioAtendimentos(void);

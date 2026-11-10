@@ -23,6 +23,8 @@ int lerInteiro(void) {
 
 int main() {
     carregarAnimais();
+    carregarAtendimentos();
+    carregarServicos();
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
     #endif

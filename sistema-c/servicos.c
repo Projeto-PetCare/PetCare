@@ -188,5 +188,7 @@ void registrarServico(void) {
     totalServicos++;
     proximoIdServico++;
 
+    salvarServicos();
+
     printf("\nServiço registrado com sucesso! (ID %d | R$ %.2f)\n", novo.id, novo.valor);
 }

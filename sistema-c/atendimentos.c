@@ -142,7 +142,8 @@ void registrarAtendimento(void) {
     // Só grava depois que tudo foi preenchido com sucesso
     atendimentos[totalAtendimentos] = novo;
     totalAtendimentos++;
-
+    salvarAtendimentos();
+    
     printf("\nAtendimento registrado com sucesso!\n");
 }
 

@@ -19,3 +19,9 @@
 
 # Dados locais dos animais
 /sistema-c/animais.json
+
+# Dados locais dos atendimentos
+/sistema-c/atendimentos.json
+
+# Dados locais dos serviços
+/sistema-c/servicos.json
