@@ -1,3 +1,21 @@
 *.exe
 *.o
 .vscode/
+
+# Arquivos gerados pela compilação
+*.a
+*.so
+*.so.*
+/sistema-c/petcare
+/sistema-c/api/civetweb
+/sistema-c/api/out/
+# Arquivos temporários de teste CGI
+/sistema-c/teste_cgi
+/sistema-c/teste_cgi.c
+
+# Arquivos temporários de teste JSON
+/sistema-c/teste_json
+/sistema-c/teste_json.c
+
+# Dados locais dos animais
+/sistema-c/animais.json

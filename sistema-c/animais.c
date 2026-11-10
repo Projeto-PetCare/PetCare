@@ -247,6 +247,7 @@ void cadastrarAnimal(void) {
     animais[totalAnimais] = novoAnimal;
     totalAnimais++;
     proximoId++;
+    salvarAnimais();
  
     printf("\nAnimal cadastrado com sucesso!\n");
 }
