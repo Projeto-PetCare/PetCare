@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
+#include <stdlib.h>
 #include "petcare.h"
 
 /* Definições reais das variáveis compartilhadas de atendimentos
@@ -7,14 +9,57 @@
 struct Atendimento atendimentos[MAX_ATENDIMENTOS];
 int totalAtendimentos = 0;
 
-/* Descarta o que sobrou na linha digitada (evita problemas entre scanf) */
+/* Descarta o que sobrou na linha digitada */
 static void limparBuffer(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {
     }
 }
 
-/* Confere se a data está no formato DD/MM/AAAA com valores possíveis */
+/* Lê uma linha inteira com segurança. Retorna 0 se a entrada acabou (EOF). */
+static int lerLinha(const char *msg, char *dest, int tam) {
+    printf("%s", msg);
+    if (fgets(dest, tam, stdin) == NULL) return 0;
+
+    size_t len = strlen(dest);
+    if (len > 0 && dest[len - 1] == '\n') {
+        dest[len - 1] = '\0';
+    } else {
+        limparBuffer(); /* linha maior que o buffer: descarta o excesso */
+    }
+    return 1;
+}
+
+/* Lê um inteiro. Retorna 1 se for um número válido (sem letras sobrando). */
+static int lerInteiro(const char *msg, int *valor) {
+    char buf[32];
+    char *fim;
+
+    if (!lerLinha(msg, buf, sizeof buf)) return 0;
+
+    long n = strtol(buf, &fim, 10);
+    if (fim == buf) return 0;                       /* nenhum dígito */
+    while (*fim == ' ' || *fim == '\t') fim++;      /* tolera espaços no fim */
+    if (*fim != '\0') return 0;                     /* sobrou lixo (ex: 12abc) */
+    if (n < INT_MIN || n > INT_MAX) return 0;       /* número gigante */
+
+    *valor = (int) n;
+    return 1;
+}
+
+/* Retorna 1 se o texto for vazio ou só tiver espaços */
+static int textoVazio(const char *s) {
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] != ' ' && s[i] != '\t') return 0;
+    }
+    return 1;
+}
+
+static int anoBissexto(int ano) {
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+/* Confere se a data está no formato DD/MM/AAAA e se ela realmente existe */
 static int dataValida(const char *data) {
     if (strlen(data) != 10) return 0;
 
@@ -28,17 +73,30 @@ static int dataValida(const char *data) {
 
     int dia = (data[0] - '0') * 10 + (data[1] - '0');
     int mes = (data[3] - '0') * 10 + (data[4] - '0');
+    int ano = (data[6] - '0') * 1000 + (data[7] - '0') * 100
+            + (data[8] - '0') * 10   + (data[9] - '0');
 
+    if (ano < 1900 || ano > 2100) return 0;
     if (mes < 1 || mes > 12) return 0;
-    if (dia < 1 || dia > 31) return 0;
-    return 1;
+
+    int diasNoMes[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (mes == 2 && anoBissexto(ano)) diasNoMes[1] = 29;
+
+    return dia >= 1 && dia <= diasNoMes[mes - 1];
+}
+
+/* Retorna o índice do animal com esse ID, ou -1 se não existir */
+static int buscarAnimal(int id) {
+    for (int i = 0; i < totalAnimais; i++) {
+        if (animais[i].id == id) return i;
+    }
+    return -1;
 }
 
 // FUNÇÃO DE REGISTRAR ATENDIMENTO
 void registrarAtendimento(void) {
     struct Atendimento novo;
     int id;
-    int encontrado = 0;
 
     printf("\n=== REGISTRAR ATENDIMENTO ===\n");
 
@@ -47,23 +105,12 @@ void registrarAtendimento(void) {
         return;
     }
 
-    printf("Digite o ID do animal: ");
-    if (scanf("%d", &id) != 1) {
-        limparBuffer();
+    if (!lerInteiro("Digite o ID do animal: ", &id) || id <= 0) {
         printf("ID inválido!\n");
         return;
     }
-    limparBuffer();
 
-    // Verifica se o animal está cadastrado
-    for (int i = 0; i < totalAnimais; i++) {
-        if (animais[i].id == id) {
-            encontrado = 1;
-            break;
-        }
-    }
-
-    if (encontrado == 0) {
+    if (buscarAnimal(id) == -1) {
         printf("Animal não encontrado!\n");
         return;
     }
@@ -72,23 +119,25 @@ void registrarAtendimento(void) {
 
     // Data (repete até ser válida)
     while (1) {
-        printf("Data do atendimento (DD/MM/AAAA): ");
-        if (scanf(" %14[^\n]", novo.data) != 1) {
-            limparBuffer();
+        if (!lerLinha("Data do atendimento (DD/MM/AAAA): ",
+                      novo.data, sizeof novo.data)) {
             return;
         }
-        limparBuffer();
 
         if (dataValida(novo.data)) break;
-        printf("Data inválida! Use o formato DD/MM/AAAA.\n");
+        printf("Data inválida! Use o formato DD/MM/AAAA com uma data que exista.\n");
     }
 
-    printf("Descrição do atendimento: ");
-    if (scanf(" %149[^\n]", novo.descricao) != 1) {
-        limparBuffer();
-        return;
+    // Descrição (repete até não ser vazia)
+    while (1) {
+        if (!lerLinha("Descrição do atendimento: ",
+                      novo.descricao, sizeof novo.descricao)) {
+            return;
+        }
+
+        if (!textoVazio(novo.descricao)) break;
+        printf("A descrição não pode ficar vazia!\n");
     }
-    limparBuffer();
 
     // Só grava depois que tudo foi preenchido com sucesso
     atendimentos[totalAtendimentos] = novo;
@@ -99,41 +148,29 @@ void registrarAtendimento(void) {
 
 // FUNÇÃO DE CONSULTAR HISTÓRICO
 void consultarHistorico(void) {
-
     int id;
-    int encontrado = 0;
 
     printf("\n=== HISTÓRICO DE ATENDIMENTOS ===\n");
-    printf("Digite o ID do animal: ");
-    if (scanf("%d", &id) != 1) {
-        limparBuffer();
+
+    if (!lerInteiro("Digite o ID do animal: ", &id) || id <= 0) {
         printf("ID inválido!\n");
         return;
     }
-    limparBuffer();
 
-    for (int i = 0; i < totalAnimais; i++) {
-        if (animais[i].id == id) {
-            printf("\nAnimal: %s\n", animais[i].nome);
-            encontrado = 1;
-            break;
-        }
-    }
-
-    if (encontrado == 0) {
+    int pos = buscarAnimal(id);
+    if (pos == -1) {
         printf("Animal não encontrado!\n");
         return;
     }
 
+    printf("\nAnimal: %s\n", animais[pos].nome);
+
     int possuiAtendimento = 0;
 
     for (int i = 0; i < totalAtendimentos; i++) {
-
         if (atendimentos[i].idAnimal == id) {
-
             printf("\nData: %s\n", atendimentos[i].data);
             printf("Descrição: %s\n", atendimentos[i].descricao);
-
             possuiAtendimento = 1;
         }
     }
