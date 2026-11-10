@@ -1,17 +1,112 @@
+/* ÁREA PRINCIPAL DOS SERVIÇOS */
+
 .servicos {
     max-width: 1200px;
-    min-height: 500px;
     margin: 0 auto;
-    padding: 70px 30px;
+    padding: 70px 40px;
 }
+
+/* TÍTULO */
 
 .servicos h1 {
-    font-size: 38px;
+    font-size: 42px;
     color: var(--verde-escuro);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-.servicos p {
+/* DESCRIÇÃO PRINCIPAL */
+
+.servicos > p {
+    color: var(--texto);
     font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* ORGANIZAÇÃO DOS CARDS */
+
+.servicos-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+/* CARDS DOS SERVIÇOS */
+
+.card-servico {
+    background-color: #EEE7D8;
+    padding: 30px 25px;
+    border-radius: 12px;
+    text-align: center;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* ÍCONES DOS SERVIÇOS */
+
+.icone-servico {
+    display: block;
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+/* TÍTULOS DOS CARDS */
+
+.card-servico h2 {
+    color: var(--verde-escuro);
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+/* DESCRIÇÃO DOS CARDS */
+
+.card-servico p {
+    color: var(--texto);
+    font-size: 15px;
     line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* EFEITO AO PASSAR O MOUSE */
+
+.card-servico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* EFEITO AO CLICAR E SELECIONAR */
+
+.card-servico:focus {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22);
+    outline: 2px solid var(--verde-medio);
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    .servicos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .servicos {
+        padding: 50px 24px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .servicos-container {
+        grid-template-columns: 1fr;
+    }
+
+    .servicos h1 {
+        font-size: 32px;
+    }
+
 }
