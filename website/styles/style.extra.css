@@ -1,0 +1,65 @@
+/* TERMOS DE USO E POLÍTICA DE PRIVACIDADE */
+
+.extra-main {
+    padding: 60px 24px;
+}
+
+.extra-container {
+    max-width: 900px;
+    margin: 0 auto;
+
+    padding: 45px;
+
+    background-color: var(--branco);
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.extra-container h1 {
+    color: var(--verde-escuro);
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.extra-data {
+    color: #657366;
+    font-size: 14px;
+    margin-bottom: 35px;
+}
+
+.extra-container section {
+    margin-bottom: 28px;
+}
+
+.extra-container h2 {
+    color: var(--verde-escuro);
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.extra-container p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.extra-container a {
+    color: var(--verde-medio);
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    .extra-main {
+        padding: 30px 15px;
+    }
+
+    .extra-container {
+        padding: 25px 20px;
+    }
+
+    .extra-container h1 {
+        font-size: 28px;
+    }
+
+}

@@ -314,4 +314,23 @@ body {
     outline-offset: 3px;
 }
 
+/* LINKS EXTRAS DO RODAPÉ */
+.footer-extra {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 20px;
+    margin-top: 12px;
+}
+
+.footer-extra a {
+    color: var(--branco);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.footer-extra a:hover {
+    color: var(--verde-claro);
+    text-decoration: underline;
 }
