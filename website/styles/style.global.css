@@ -149,7 +149,66 @@ body {
 
 }
 
-/* RESPONSIVIDADE DO CABEÇALHO */
+/* ===================================== */
+/* PATINHAS DECORATIVAS - TODAS AS PÁGINAS */
+/* ===================================== */
+
+.patinhas-fundo {
+    position: relative;
+    isolation: isolate;
+}
+
+/* PATINHA SUPERIOR ESQUERDA */
+
+.patinhas-fundo::before {
+    content: "🐾";
+
+    position: absolute;
+    top: 30px;
+    left: 20px;
+
+    font-size: 100px;
+    opacity: 0.10;
+
+    transform: rotate(-25deg);
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* PATINHA INFERIOR DIREITA */
+
+.patinhas-fundo::after {
+    content: "🐾";
+
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+
+    font-size: 120px;
+    opacity: 0.10;
+
+    transform: rotate(25deg);
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* AJUSTES PARA CELULAR */
+
+@media (max-width: 768px) {
+
+    .patinhas-fundo::before {
+        font-size: 65px;
+        left: 5px;
+    }
+
+    .patinhas-fundo::after {
+        font-size: 75px;
+        right: 5px;
+    }
+
+}
 
 @media (max-width: 768px) {
 
