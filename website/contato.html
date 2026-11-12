@@ -17,26 +17,41 @@
 <body>
 
     <header class="header">
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Navegação principal">
 
+            <!-- LOGO DA CLÍNICA -->
             <div class="logo">
                 <a href="index.html">🐾 PetCare</a>
             </div>
 
-            <ul class="nav-links">
+            <!-- Botão Sanduiche -->
+             <button
+             type="button"
+             class="mobile-menu"
+             id="mobile-menu"
+             aria-label="Abrir menu de navegação"
+             aria-controls="nav-list"
+                aria-expanded="false">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+            </button>
+            
+            <!-- LINKS DE NAVEGAÇÃO -->
+            <ul class="nav-links" id="nav-list">
                 <li><a href="index.html">Página Inicial</a></li>
-                <li><a href="login.html" class="btn-login">Login</a></li>
                 <li><a href="servicos.html">Serviços</a></li>
                 <li><a href="sobre.html">Sobre Nós</a></li>
                 <li><a href="contato.html">Contato</a></li>
             </ul>
 
         </nav>
+        
     </header>
 
     <main>
 
-    <section class="contato">
+    <section class="contato patinhas-fundo">
 
         <!-- TÍTULO PRINCIPAL -->
 
@@ -221,10 +236,6 @@
                 </li>
 
                 <li>
-                    <a href="login.html">Login</a>
-                </li>
-
-                <li>
                     <a href="servicos.html">Serviços</a>
                 </li>
 
@@ -253,17 +264,20 @@
     </div>
 
     <!-- PARTE INFERIOR DO RODAPÉ -->
-    <div class="footer-bottom">
+    
+<div class="footer-bottom">
 
-        <p>
-            © 2026 PetCare — Projeto acadêmico - ADS — Todos os direitos reservados.
-        </p>
+    <p>
+        © 2026 PetCare — Projeto acadêmico - ADS —
+        Todos os direitos reservados.
+    </p>
 
     </div>
 
 </footer>
 
-<script src="./js/script.contato.js"></script>
+<script src="./js/script.menu.js" defer></script>
+<script src="./js/script.contato.js" defer></script>
 
 </body>
 
