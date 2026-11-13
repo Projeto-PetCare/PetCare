@@ -232,7 +232,91 @@ int main(void) {
     if (cJSON_IsString(complemento)) {
         strcpy(novoAnimal.responsavel.complemento, complemento->valuestring);
     }
+       cJSON *contatos = cJSON_GetObjectItemCaseSensitive(jsonRecebido, "contatos");
 
+        if (contatos != NULL && !cJSON_IsNull(contatos)) {
+            if (!cJSON_IsArray(contatos) || cJSON_GetArraySize(contatos) > 2) {
+                cJSON_Delete(jsonRecebido);
+                free(dados);
+
+                printf("Status: 400 Bad Request\r\n");
+                printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                printf("{\"sucesso\":false,\"mensagem\":\"Informe no maximo dois contatos validos.\"}");
+                return 1;
+            }
+
+            int quantidade = cJSON_GetArraySize(contatos);
+
+            for (int i = 0; i < quantidade; i++) {
+                cJSON *contato = cJSON_GetArrayItem(contatos, i);
+
+                if (!cJSON_IsObject(contato)) {
+                    cJSON_Delete(jsonRecebido);
+                    free(dados);
+
+                    printf("Status: 400 Bad Request\r\n");
+                    printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                    printf("{\"sucesso\":false,\"mensagem\":\"Contato invalido.\"}");
+                    return 1;
+                }
+                cJSON *nomeContato = cJSON_GetObjectItemCaseSensitive(contato, "nome");
+                cJSON *telefoneContato = cJSON_GetObjectItemCaseSensitive(contato, "telefone");
+
+                if (!cJSON_IsString(nomeContato) ||
+                    !cJSON_IsString(telefoneContato) ||
+                    nomeContato->valuestring[0] == '\0' ||
+                    telefoneContato->valuestring[0] == '\0') {
+
+                    cJSON_Delete(jsonRecebido);
+                    free(dados);
+
+                    printf("Status: 400 Bad Request\r\n");
+                    printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                    printf("{\"sucesso\":false,\"mensagem\":\"Dados de contato invalidos.\"}");
+                    return 1;
+                }
+
+                if (strlen(nomeContato->valuestring) >= sizeof(novoAnimal.contatos[i].nome)) {
+                    cJSON_Delete(jsonRecebido);
+                    free(dados);
+
+                    printf("Status: 400 Bad Request\r\n");
+                    printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                    printf("{\"sucesso\":false,\"mensagem\":\"Nome do contato muito longo.\"}");
+                    return 1;
+                }
+
+                int tamanhoTelefoneContato = strlen(telefoneContato->valuestring);
+
+                if (tamanhoTelefoneContato != 10 && tamanhoTelefoneContato != 11) {
+                    cJSON_Delete(jsonRecebido);
+                    free(dados);
+
+                    printf("Status: 400 Bad Request\r\n");
+                    printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                    printf("{\"sucesso\":false,\"mensagem\":\"O telefone do contato deve ter DDD e 10 ou 11 digitos.\"}");
+                    return 1;
+                }
+
+                for (int j = 0; j < tamanhoTelefoneContato; j++) {
+                    if (telefoneContato->valuestring[j] < '0' ||
+                        telefoneContato->valuestring[j] > '9') {
+
+                        cJSON_Delete(jsonRecebido);
+                        free(dados);
+
+                        printf("Status: 400 Bad Request\r\n");
+                        printf("Content-Type: application/json; charset=utf-8\r\n\r\n");
+                        printf("{\"sucesso\":false,\"mensagem\":\"Digite apenas numeros no telefone do contato.\"}");
+                        return 1;
+                    }
+                }
+
+                strcpy(novoAnimal.contatos[i].nome, nomeContato->valuestring);
+                strcpy(novoAnimal.contatos[i].telefone, telefoneContato->valuestring);
+                novoAnimal.totalContatos++;
+            }
+        }
         if (totalAnimais >= MAX_ANIMAIS) {
         cJSON_Delete(jsonRecebido);
         free(dados);

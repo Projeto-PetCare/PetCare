@@ -5,7 +5,7 @@ const ROTAS_PAINEL = {
   registrarAtendimento: "/cgi-bin/registrar_atendimento",
   registrarServico: "/cgi-bin/registrar_servico",
   historico: "/cgi-bin/historico_atendimentos",
-  relatorio: "/cgi-bin/relatorio_atendimento",
+  relatorio: "/cgi-bin/relatorio_atendimentos",
   faturamento: "/cgi-bin/relatorio_faturamento",
   listarServicos: "/cgi-bin/listar_servicos"
 };

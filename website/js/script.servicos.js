@@ -190,6 +190,24 @@ function mostrarAnimais(animais) {
 
         const linha = document.createElement("tr");
 
+        //Dados do responsável
+        const responsavel = animal.responsavel
+            ?`${animal.responsavel.nome} - ${animal.responsavel.telefone}`
+            :"Não cadastrado";
+
+        //Contatos adicionais
+
+        //Primeiro contato
+
+        const contato1 = animal.contatos?.[0]
+            ?`${animal.contatos[0].nome} - ${animal.contatos[0].telefone}`
+            : "Não cadastrado";
+            
+        //Segundo contato
+        const contato2 = animal.contatos?.[1]
+            ? `${animal.contatos[1].nome} - ${animal.contatos[1].telefone}`
+            : "Não cadastrado";
+
         const campos = [
             animal.id,
             animal.nome,
@@ -197,7 +215,10 @@ function mostrarAnimais(animais) {
             animal.raca,
             Number(animal.sexo) === 1 ? "Macho" : "Fêmea",
             `${animal.idadeAnos}a ${animal.idadeMeses}m`,
-            animal.responsavel?.nome || ""
+            responsavel,
+            contato1,
+            contato2
+            
         ];
 
         for (const campo of campos) {

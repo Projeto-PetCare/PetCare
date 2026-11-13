@@ -23,7 +23,7 @@
 
             <!-- LOGO DA CLÍNICA -->
             <div class="logo">
-                <a href="/index.html">🐾 PetCare</a>
+                <a href="/petcare/">🐾 PetCare</a>
             </div>
 
             <!-- Botão Sanduiche -->
@@ -41,10 +41,10 @@
             
             <!-- LINKS DE NAVEGAÇÃO -->
             <ul class="nav-links" id="nav-list">
-                <li><a href="/index.html">Página Inicial</a></li>
-                <li><a href="/website/servicos.html">Serviços</a></li>
-                <li><a href="/website/sobre.html">Sobre Nós</a></li>
-                <li><a href="/website/contato.html">Contato</a></li>
+                <li><a href="/petcare/">Página Inicial</a></li>
+                <li><a href="./servicos.html">Serviços</a></li>
+                <li><a href="./sobre.html">Sobre Nós</a></li>
+                <li><a href="./contato.html">Contato</a></li>
             </ul>
 
         </nav>
@@ -151,7 +151,7 @@
 <!-- CONSULTA DE CEP -->
 <div class="campo campo-cep">
 
-    <label for="resp-cep">CEP *</label>
+    <label for="resp-cep">CEP</label>
 
     <div class="cep-container">
 
@@ -163,7 +163,7 @@
             maxlength="9"
             inputmode="numeric"
             autocomplete="postal-code"
-            required
+            
         >
 
         <button
@@ -319,6 +319,8 @@
                     <th>Sexo</th>
                     <th>Idade</th>
                     <th>Responsável</th>
+                    <th>1º Contato adicional</th>
+                    <th>2º Contato adicional</th>
                 </tr>
             </thead>
 
@@ -342,7 +344,6 @@
       <div class="campo"><label for="at-data">Data do atendimento *</label><input id="at-data" type="date" required></div>
       <div class="campo campo-largo"><label for="at-descricao">Descrição *</label><textarea id="at-descricao" maxlength="149" rows="4" required></textarea></div>
     </div>
-    <p class="nota-painel">O backend atual registra ID do animal, data e descrição. Não existe campo de serviço relacionado no struct Atendimento.</p>
     <button class="botao-acao" type="submit">Salvar atendimento</button>
     <p id="mensagem-atendimento" role="status" aria-live="polite"></p>
   </form>
@@ -408,19 +409,19 @@
 
             <ul>
                 <li>
-                    <a href="/index.html">Página Inicial</a>
+                    <a href="/petcare/">Página Inicial</a>
                 </li>
 
                 <li>
-                    <a href="/website/servicos.html">Serviços</a>
+                    <a href="./servicos.html">Serviços</a>
                 </li>
 
                 <li>
-                    <a href="/website/sobre.html">Sobre Nós</a>
+                    <a href="./sobre.html">Sobre Nós</a>
                 </li>
 
                 <li>
-                    <a href="/website/contato.html">Contato</a>
+                    <a href="./contato.html">Contato</a>
                 </li>
             </ul>
 
@@ -451,11 +452,11 @@
     <nav class="footer-extra"
          aria-label="Informações legais">
 
-        <a href="/website/termos.html">
+        <a href="./termos.html">
             Termos de Uso
         </a>
 
-        <a href="/website/privacidade.html">
+        <a href="./privacidade.html">
             Política de Privacidade
         </a>
 
@@ -465,10 +466,10 @@
 
 </footer>
 
-<script src="/website/js/script.menu.js" defer></script>
-<script src="/website/js/script.servicos.js" defer></script>
-<script src="/website/js/script.cep.js" defer></script>
-<script src="/website/js/script.painel.js" defer></script>
+<script src="./js/script.menu.js" defer></script>
+<script src="./js/script.servicos.js" defer></script>
+<script src="./js/script.cep.js" defer></script>
+<script src="./js/script.painel.js" defer></script>
 
 </body>
 
