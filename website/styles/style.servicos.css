@@ -7,7 +7,6 @@
 }
 
 /* TÍTULO */
-
 .servicos h1 {
     font-size: 42px;
     color: var(--verde-escuro);
@@ -15,7 +14,6 @@
 }
 
 /* DESCRIÇÃO PRINCIPAL */
-
 .servicos > p {
     color: var(--texto);
     font-size: 18px;
@@ -24,7 +22,6 @@
 }
 
 /* ORGANIZAÇÃO DOS CARDS */
-
 .servicos-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -32,7 +29,6 @@
 }
 
 /* CARDS DOS SERVIÇOS */
-
 .card-servico {
     background-color: #EEE7D8;
     padding: 30px 25px;
@@ -46,7 +42,6 @@
 }
 
 /* ÍCONES DOS SERVIÇOS */
-
 .icone-servico {
     display: block;
     font-size: 35px;
@@ -54,7 +49,6 @@
 }
 
 /* TÍTULOS DOS CARDS */
-
 .card-servico h2 {
     color: var(--verde-escuro);
     font-size: 21px;
@@ -62,7 +56,6 @@
 }
 
 /* DESCRIÇÃO DOS CARDS */
-
 .card-servico p {
     color: var(--texto);
     font-size: 15px;
@@ -71,7 +64,6 @@
 }
 
 /* EFEITO AO PASSAR O MOUSE */
-
 .card-servico:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
@@ -86,7 +78,6 @@
 }
 
 /* RESPONSIVIDADE */
-
 @media (max-width: 768px) {
 
     .servicos-container {
@@ -110,3 +101,220 @@
     }
 
 }
+
+/* PAINEL DE OPERAÇÕES */
+.painel-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.painel-botao,
+.botao-acao {
+    padding: 13px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.painel-botao {
+    background-color: #EEE7D8;
+    color: var(--verde-escuro);
+}
+
+.painel-botao.ativo,
+.botao-acao {
+    background-color: var(--verde-medio);
+    color: var(--branco);
+}
+
+.painel-botao:hover,
+.botao-acao:hover {
+    filter: brightness(0.92);
+}
+
+/* TELAS INTERNAS */
+.painel-tela {
+    background-color: var(--branco);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* GARANTE QUE TELAS OCULTAS NÃO APAREÇAM */
+.painel-tela[hidden] {
+    display: none;
+}
+
+.painel-tela h2 {
+    color: var(--verde-escuro);
+    margin-bottom: 25px;
+}
+
+/* FORMULÁRIOS */
+.painel-tela fieldset {
+    border: 1px solid #D5DCCF;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    min-width: 0;
+}
+
+.painel-tela legend {
+    color: var(--verde-escuro);
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.campo label,
+.pesquisa-container label {
+    color: var(--verde-escuro);
+    font-weight: bold;
+}
+
+.campo input,
+.campo select,
+.campo textarea,
+.pesquisa-container input {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #D5DCCF;
+    border-radius: 8px;
+    font: inherit;
+    background-color: #FFFFFF;
+}
+
+/* PESQUISA */
+.pesquisa-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.pesquisa-container input {
+    flex: 1;
+    min-width: 180px;
+}
+
+/* TABELA */
+
+.tabela-container {
+    overflow-x: auto;
+}
+
+.tabela-animais {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-animais th,
+.tabela-animais td {
+    padding: 14px;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.tabela-animais th {
+    background-color: #EEE7D8;
+    color: var(--verde-escuro);
+}
+
+/* MENSAGENS */
+#mensagem-cadastro,
+#mensagem-listagem {
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+/* CELULARES */
+
+@media (max-width: 768px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .painel-tela {
+        padding: 20px;
+    }
+
+    .painel-menu {
+        flex-direction: column;
+    }
+
+}
+
+/* =============================== */
+/* CONSULTA DE CEP                 */
+/* =============================== */
+.campo-cep {
+    grid-column: 1 / -1;
+}
+
+.cep-container {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.cep-container input {
+    flex: 1;
+    min-width: 0;
+}
+
+.cep-container .botao-acao {
+    white-space: nowrap;
+}
+
+#mensagem-cep {
+    font-size: 13px;
+    color: #536B57;
+}
+
+#mensagem-cep.erro {
+    color: #B42318;
+}
+
+@media (max-width: 480px) {
+
+    .cep-container {
+        flex-direction: column;
+    }
+
+    .cep-container .botao-acao {
+        width: 100%;
+    }
+
+}
+/* PAINEL: telas de atendimento, serviço, histórico e relatórios */
+.painel-menu { display:flex; flex-wrap:wrap; gap:10px; }
+.painel-menu .painel-botao { flex:1 1 190px; }
+.painel-tela[hidden] { display:none !important; }
+.campo-largo { grid-column:1 / -1; }
+.form-operacao { display:grid; gap:18px; }
+.form-operacao textarea, .pesquisa-container select { width:100%; min-width:0; padding:12px; border:1px solid #D5DCCF; border-radius:8px; font:inherit; background:white; }
+.nota-painel { font-size:13px; color:#5C6C5D; }
+.resumo-faturamento { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin:16px 0 24px; }
+.resumo-faturamento > div { display:flex; flex-direction:column; gap:8px; padding:22px; background:#F5F1E5; border-radius:10px; color:#405B46; }
+.resumo-faturamento strong { font-size:28px; }
+.painel-tela h3 { margin:22px 0 12px; color:#405B46; }
+@media(max-width:768px) { .campo-largo {grid-column:auto;} .resumo-faturamento {grid-template-columns:1fr;} }
