@@ -74,8 +74,8 @@ extern int proximoIdServico;
 void cadastrarAnimal(void);
 void listarAnimais(void);
 void pesquisarAnimais(void);
-void salvarAnimais(void);
-void carregarAnimais(void);
+int salvarAnimais(void);
+int carregarAnimais(void);
 
 /* atendimentos.c */
 void registrarAtendimento(void);
