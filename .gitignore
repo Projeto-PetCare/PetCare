@@ -25,3 +25,9 @@
 
 # Dados locais dos serviços
 /sistema-c/servicos.json
+# Executáveis CGI compilados
+*.cgi
+/sistema-c/teste_compilacao
+
+# Backup local
+/sistema-c/cgi_animais_backup.c

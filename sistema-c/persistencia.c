@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <cjson/cJSON.h>
 #include "petcare.h"
-void salvarAnimais(void) {
+int salvarAnimais(void) {
     cJSON *lista = cJSON_CreateArray();
 
     if (lista == NULL) {
-        printf("Erro ao criar lista JSON!\n");
-        return;
+        fprintf(stderr, "Erro ao criar lista JSON!\n");
+        return 0;
     }
     for (int i = 0; i < totalAnimais; i++) {
     cJSON *animal = cJSON_CreateObject();
@@ -55,32 +55,43 @@ void salvarAnimais(void) {
         char *json = cJSON_Print(lista);
 
     if (json == NULL) {
-        printf("Erro ao converter os dados para JSON!\n");
+        fprintf(stderr, "Erro ao converter os dados para JSON!\n");
         cJSON_Delete(lista);
-        return;
+        return 0;
     }
 
     FILE *arquivo = fopen("animais.json", "w");
 
     if (arquivo == NULL) {
-        printf("Erro ao abrir animais.json!\n");
+        fprintf(stderr, "Erro ao abrir animais.json!\n");
         free(json);
         cJSON_Delete(lista);
-        return;
+        return 0;
+    }
+    int erroEscrita = 0;
+
+    if (fprintf(arquivo, "%s\n", json) < 0) {
+        erroEscrita = 1;
     }
 
-    fprintf(arquivo, "%s\n", json);
-
-    fclose(arquivo);
+    if (fclose(arquivo) != 0) {
+        erroEscrita = 1;
+    }
     free(json);
     cJSON_Delete(lista);
+
+    if (erroEscrita) {
+        fprintf(stderr, "Erro ao gravar animais.json!\n");
+        return 0;
+    }
+    return 1;
 }
 
-void carregarAnimais(void) {
+int carregarAnimais(void) {
     FILE *arquivo = fopen("animais.json", "r");
     if (arquivo == NULL) {
-    printf("Arquivo animais.json ainda não existe.\n");
-    return;
+    fprintf(stderr, "Arquivo animais.json ainda não existe.\n");
+    return 0;
 }
 
     fseek(arquivo, 0, SEEK_END);
@@ -89,9 +100,9 @@ void carregarAnimais(void) {
     char *conteudo = malloc(tamanho + 1);
 
 if (conteudo == NULL) {
-    printf("Erro ao reservar memória!\n");
+    fprintf(stderr, "Erro ao reservar memória!\n");
     fclose(arquivo);
-    return;
+    return 0;
 }
 
     size_t lidos = fread(conteudo, 1, tamanho, arquivo);
@@ -101,15 +112,15 @@ if (conteudo == NULL) {
     cJSON *lista = cJSON_Parse(conteudo);
 
 if (lista == NULL) {
-    printf("Erro ao interpretar o JSON!\n");
+    fprintf(stderr, "Erro ao interpretar o JSON!\n");
     free(conteudo);
-    return;
+    return 0;
 }
 if (!cJSON_IsArray(lista)) {
-    printf("O JSON não contém uma lista válida!\n");
+    fprintf(stderr, "O JSON não contém uma lista válida!\n");
     cJSON_Delete(lista);
     free(conteudo);
-    return;
+    return 0;
 }
 totalAnimais = 0;
 
@@ -236,6 +247,7 @@ cJSON_ArrayForEach(item, lista) {
 
     cJSON_Delete(lista);
     free(conteudo);
+    return 1;
 }
 
 
