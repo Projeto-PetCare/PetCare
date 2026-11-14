@@ -1,0 +1,102 @@
+/* ESTILIZAÇÃO DA PÁGINA ODS 9 */
+
+.ods.main {
+ min-height: 70vh;
+ background-color: var(--bege);
+ padding: 60px 24px;
+}
+
+/* APRESENTAÇÃO DA ODS 9 */
+
+.ods-hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background-color: var(--branco);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+/* TEXTOS DA APRESENTAÇÃO */
+
+.ods-tag {
+    color: var(--verde-medio);
+    font-size: 14px; 
+    font-weight: bold;
+
+}
+
+.ods-hero-content h1 {
+    color: var(--verde-escuro);
+    font-size: 36px;
+    margin: 20px 0;
+
+}
+
+.ods-hero-content p {
+    color: var(--texto);
+    font-size: 36px;
+    margin: 20px 0; 
+
+}
+
+
+.ods-hero-content p {
+    color: var(--texto);
+    font-size: 17px;
+    line-height: 1.8; 
+}
+
+/* SEÇÃO: O QUE É A ODS 9? */
+
+.ods-sobre {
+    max-width: 1100px;
+    margin: 30px auto 0;
+    padding: 45px 40px;
+
+    background-color: var(--verde-claro);
+    border-radius: 15px;
+    
+}
+
+.ods-sobre h2 {
+    color: var(--verde-escuro);
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* TEXTO DA SEÇÃO */
+
+.ods-sobre p {
+    color: var(--texto);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.ods-petcare {
+    max-width: 1100px;
+    margin: 30px auto 0;
+    padding: 45px 40px;
+
+    background-color: var(--branco);
+    border-left: 6px solid var(--verde-medio);
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06); 
+}
+
+
+/* TÍTULO E TEXTO DA RELAÇÃO COM O PETCARE */
+
+ods.petcare h2 {
+    color: var(--verde-escuro);
+    font-size: 28px; 
+    margin-bottom: 20px;
+}
+
+.ods-petcare p {
+    color: var(--texto);
+    font-size: 17px;
+    line-height: 1.8;
+}
