@@ -128,16 +128,10 @@ formAnimal.addEventListener("submit", async (event) => {
             );
         }
 
-        // Atenção: o CGI atual confirma apenas o
-        // recebimento do JSON, não a gravação.
         mensagemCadastro.textContent =
-    resultado.mensagem || "Animal cadastrado com sucesso.";
+            resultado.mensagem || "Animal cadastrado com sucesso.";
 
-formAnimal.reset();
-
-        // Só limpar o formulário após o backend
-        // confirmar a gravação de verdade.
-        // formAnimal.reset();
+        formAnimal.reset();
     } catch (erro) {
         mensagemCadastro.textContent =
             `Erro: ${erro.message}`;
