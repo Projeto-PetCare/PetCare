@@ -10,7 +10,7 @@
 
 .ods-hero {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 30px auto 20px;
     padding: 60px 40px;
     background-color: var(--branco);
     border-radius: 15px;
@@ -30,14 +30,14 @@
 .ods-hero-content h1 {
     color: var(--verde-escuro);
     font-size: 36px;
-    margin: 20px 0;
+    margin: 30px auto 20px;
 
 }
 
 .ods-hero-content p {
     color: var(--texto);
     font-size: 36px;
-    margin: 20px 0; 
+    margin: 20px auto 20px; 
 
 }
 
